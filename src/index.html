@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkView - Visor de Markdown</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../node_modules/github-markdown-css/github-markdown-light.css">
+    <link rel="stylesheet" href="../node_modules/highlight.js/styles/github.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barra de herramientas -->
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <button id="open-folder-btn" class="btn btn-primary">
+                    <span class="icon">📁</span>
+                    Abrir Carpeta
+                </button>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Buscar archivos..." class="search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+            <div class="toolbar-right">
+                <button id="theme-toggle" class="btn btn-secondary" title="Cambiar tema">
+                    <span class="icon">🌙</span>
+                </button>
+                <button id="refresh-btn" class="btn btn-secondary" title="Actualizar">
+                    <span class="icon">🔄</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Panel lateral - Explorador de archivos -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Archivos Markdown</h3>
+                    <div class="file-count" id="file-count">0 archivos</div>
+                </div>
+                <div class="file-tree" id="file-tree">
+                    <div class="empty-state">
+                        <div class="empty-icon">📄</div>
+                        <p>Selecciona una carpeta para comenzar</p>
+                        <button class="btn btn-outline" onclick="document.getElementById('open-folder-btn').click()">
+                            Abrir Carpeta
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Redimensionador -->
+            <div class="resizer" id="resizer"></div>
+
+            <!-- Panel de contenido -->
+            <div class="content-panel" id="content-panel">
+                <div class="content-header">
+                    <div class="breadcrumb" id="breadcrumb"></div>
+                    <div class="content-actions">
+                        <button id="copy-content-btn" class="btn btn-small" title="Copiar contenido">
+                            <span class="icon">📋</span>
+                        </button>
+                        <button id="export-html-btn" class="btn btn-small" title="Exportar como HTML">
+                            <span class="icon">💾</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="content-viewer" id="content-viewer">
+                    <div class="welcome-screen">
+                        <div class="welcome-icon">📝</div>
+                        <h1>Bienvenido a MarkView</h1>
+                        <p>Un visor elegante de archivos Markdown diseñado especialmente para explorar documentación</p>
+                        
+                        <div class="features">
+                            <div class="feature">
+                                <div class="feature-icon">📁</div>
+                                <div>
+                                    <strong>Explorador de carpetas</strong>
+                                    <p>Navega por todos tus archivos Markdown</p>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">🔍</div>
+                                <div>
+                                    <strong>Búsqueda inteligente</strong>
+                                    <p>Encuentra archivos rápidamente</p>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">🎨</div>
+                                <div>
+                                    <strong>Renderizado GitHub</strong>
+                                    <p>Estilo idéntico al de GitHub</p>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">🌙</div>
+                                <div>
+                                    <strong>Tema oscuro/claro</strong>
+                                    <p>Cambia según tu preferencia</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-large" onclick="document.getElementById('open-folder-btn').click()">
+                            Comenzar - Abrir Carpeta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de estado -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="current-file">Ningún archivo seleccionado</span>
+            </div>
+            <div class="status-right">
+                <span id="file-size"></span>
+                <span id="last-modified"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de carga -->
+    <div class="modal" id="loading-modal">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <p>Cargando archivos...</p>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
