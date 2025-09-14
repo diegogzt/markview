@@ -1,0 +1,49 @@
+{
+  "name": "markview",
+  "version": "1.0.0",
+  "description": "Un visor de archivos Markdown para documentación de repositorios",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "build-mac": "electron-builder --mac",
+    "build-linux": "electron-builder --linux"
+  },
+  "keywords": ["markdown", "viewer", "documentation", "electron"],
+  "author": "MarkView",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "marked": "^9.1.2",
+    "highlight.js": "^11.9.0",
+    "github-markdown-css": "^5.4.0",
+    "fuse.js": "^7.0.0",
+    "chokidar": "^3.5.3"
+  },
+  "build": {
+    "appId": "com.markview.app",
+    "productName": "MarkView",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
